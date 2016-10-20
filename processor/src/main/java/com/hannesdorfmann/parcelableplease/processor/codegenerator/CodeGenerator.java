@@ -113,7 +113,7 @@ public class CodeGenerator {
   private void generateReadFromParcel(JavaWriter jw, String originClass,
       List<ParcelableField> fields) throws IOException {
 
-    jw.beginMethod("void", "readFromParcel", EnumSet.of(Modifier.PUBLIC, Modifier.STATIC),
+    jw.beginMethod(originClass, "readFromParcel", EnumSet.of(Modifier.PUBLIC, Modifier.STATIC),
         originClass, PARAM_TARGET, "Parcel", PARAM_PARCEL);
 
     for (ParcelableField field : fields) {
@@ -132,6 +132,7 @@ public class CodeGenerator {
       gen.generateReadFromParcel(field, jw);
     }
 
+    jw.emitStatement("return " + PARAM_TARGET);
     jw.endMethod();
   }
 }
